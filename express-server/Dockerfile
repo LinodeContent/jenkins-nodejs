@@ -1,9 +1,17 @@
 FROM node:6-alpine
 
 # Create server working directory
-WORKDIR /app
+RUN mkdir -p /home/node/app
+WORKDIR /home/node/app
 
 # Install server dependencies
-RUN npm i express -g
+COPY /express-server/package.json /home/node/app
+RUN npm install
 
+# Copy webapp
+COPY app.js /home/node/app
+
+# Open port
 EXPOSE 9000
+
+CMD ["npm", "start"]

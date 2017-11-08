@@ -1,0 +1,17 @@
+{
+  "name": "Express Server",
+  "version": "1.0.0",
+  "description": "Example Express Server",
+  "author": "Your name",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/<YOUR_USERNAME>/<REPOSITORY_NAME>.git"
+  },
+  "license": "ISC",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}
