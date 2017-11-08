@@ -9,6 +9,6 @@ COPY package.json /test
 RUN npm install
 
 # Bundle test source
-COPY test.js /test
+COPY . /test
 
 EXPOSE 9000

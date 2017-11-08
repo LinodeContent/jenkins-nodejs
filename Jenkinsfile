@@ -9,8 +9,7 @@ pipeline {
   stages {
     stage('Express Server Build') {
         steps {
-            sh 'cd /express-server'
-            sh 'docker build -t damasosanoja/express-server:latest .'
+            sh 'docker build -f express-server/Dockerfile -t damasosanoja/express-server:latest .'
         }
     }
     stage('Test Server Build') {
