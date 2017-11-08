@@ -14,8 +14,7 @@ pipeline {
     }
     stage('Test Server Build') {
         steps {
-            sh 'cd /test'
-            sh 'docker build -t damasosanoja/test-server:latest .'
+            sh 'docker build -f test-server/Dockerfile -t damasosanoja/test-server:latest .'
         }
     stage('Test webapp') {
             steps {
