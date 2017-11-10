@@ -1,7 +1,7 @@
 pipeline {
   agent any
 
-  }
+
   stages {
     stage('Express Server Build') {
         steps { sh 'docker build -f express-server/Dockerfile -t damasosanoja/express-server:latest .' }
