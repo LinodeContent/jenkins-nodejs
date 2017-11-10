@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "This is a Mocha Test Server",
   "scripts": {
-    "start": "mocha --reporter spec test.js",
-    "test-junit": "mocha --reporter mocha-junit-reporter test.js"
+    "mocha": "mocha --reporter spec test.js",
+    "start": "mocha --reporter mocha-junit-reporter --reporter-options mochaFile=/JUnit/reports.xml  test-server/*"
   },
   "repository": {
     "type": "git",
