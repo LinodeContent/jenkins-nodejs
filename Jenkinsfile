@@ -23,9 +23,10 @@ pipeline {
         sh 'docker system prune -f'
       }
     }
-    stage('') {
+    stage('Reports') {
       steps {
         junit 'reports.xml'
+        archiveArtifacts 'reports.xml'
       }
     }
   }
