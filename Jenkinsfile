@@ -33,4 +33,3 @@ pipeline {
     npm_config_cache = 'npm-cache'
     HOME = '.'
     }
-}
