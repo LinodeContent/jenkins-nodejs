@@ -2,8 +2,17 @@ pipeline {
   agent any
   stages {
     stage('Express Server Build') {
-      steps {
-        sh 'docker build -f express-server/Dockerfile -t damasosanoja/express-server:latest .'
+      parallel {
+        stage('Express Server Build') {
+          steps {
+            sh 'docker build -f express-server/Dockerfile -t damasosanoja/express-server:latest .'
+          }
+        }
+        stage('Parallel Build') {
+          steps {
+            echo 'Code here'
+          }
+        }
       }
     }
     stage('Test Server Build') {
@@ -12,9 +21,18 @@ pipeline {
       }
     }
     stage('Test webapp') {
-      steps {
-        sh 'docker run --name express-server --network="bridge" -d -p 9000:9000 damasosanoja/express-server:latest'
-        sh 'docker run --name test-server -v $PWD:/JUnit --network="bridge" --link=express-server -d -p 9001:9000 damasosanoja/test-server:latest'
+      parallel {
+        stage('Test webapp') {
+          steps {
+            sh 'docker run --name express-server --network="bridge" -d -p 9000:9000 damasosanoja/express-server:latest'
+            sh 'docker run --name test-server -v $PWD:/JUnit --network="bridge" --link=express-server -d -p 9001:9000 damasosanoja/test-server:latest'
+          }
+        }
+        stage('Test 2') {
+          steps {
+            echo 'Second Test'
+          }
+        }
       }
     }
     stage('Clean-up Containers and Images') {
