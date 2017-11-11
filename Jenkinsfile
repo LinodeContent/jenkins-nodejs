@@ -108,6 +108,7 @@ pipeline {
     stage('DEPLOY') {
         steps {
             echo 'This is deploy stage'
+            sh 'docker push damasosanoja/jenkins:${env.BUILD_NUMBER}'
         }
         environment {
             DOCKER_ACCESS = credentials('docker-hub')
