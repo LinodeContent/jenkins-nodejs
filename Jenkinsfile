@@ -108,7 +108,7 @@ pipeline {
     stage('DEPLOY') {
         steps {
             echo 'This is deploy stage'
-            sh 'docker login --username=damasosanoja --email="damasosanoja@gmail.com" --password="j221109"'
+            sh 'docker login --username=damasosanoja --password="j221109"'
             sh 'docker push damasosanoja/express-server:latest'
         }
         environment {
