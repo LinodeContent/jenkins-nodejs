@@ -111,7 +111,7 @@ pipeline {
         }
         steps {
             echo 'This is deploy stage'
-            sh 'docker login --username=$DOCKER_USR --password=$DOCKER_PWD'
+            sh 'docker login --username=$DOCKER_USR --password=""$DOCKER_PWD"'
             sh 'docker push damasosanoja/express-server:latest'
         }
 
