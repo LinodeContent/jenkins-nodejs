@@ -89,9 +89,7 @@ pipeline {
       post {
         always {
             echo 'If you see this ALWAYS works.'
-            echo $BUILD_NUMBER
-            echo $BUILD_TAG
-            echo $docker-hub
+            echo {$BUILD_NUMBER}
         }
         success {
             echo 'Post success conditional'
@@ -107,5 +105,13 @@ pipeline {
         }
     }// This is the end of post actions
     }// This is the end of REPORTS stage
+    stage('DEPLOY') {
+        steps {
+            echo 'This is deploy stage'
+        }
+        environment {
+            DOCKER_ACCESS = credentials('docker-hub')
+        }
+    }
   }// This is the end of STAGES
 }
