@@ -108,11 +108,13 @@ pipeline {
     stage('DEPLOY') {
         environment {
             DOCKER = credentials('docker-registry')
+            password = "${env.DOCKER_PWD}"
         }
         steps {
             echo 'This is deploy stage'
-            sh 'docker login --username=$DOCKER_USR --password="$DOCKER_PWD"'
-            sh 'docker push damasosanoja/express-server:latest'
+        //    sh 'docker login --username=$DOCKER_USR --password="$DOCKER_PWD"'
+        //    sh 'docker push damasosanoja/express-server:latest'
+            echo password
         }
 
     }
