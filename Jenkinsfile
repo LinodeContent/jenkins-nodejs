@@ -35,7 +35,7 @@ pipeline {
             echo 'Things were different before...'
         }
     }
-}
+
     } // This is the end of BUILD stage
 
     stage('TEST') {
