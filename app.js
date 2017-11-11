@@ -11,7 +11,7 @@ const HOST = '0.0.0.0';
 const os = ['Windows','macOS','Linux']
 
 // Web Server in action
-app.get('/error',function(req,res) {
+app.get('/',function(req,res) {
   res.json(os);
 });
 
