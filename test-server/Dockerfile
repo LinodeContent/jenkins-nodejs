@@ -12,7 +12,7 @@ COPY /test-server/package.json /home/node/tests
 RUN npm install
 
 # Copy test source
-COPY /test-server/test.js /home/node/tests
+COPY test.js /home/node/tests
 
 EXPOSE 9000
 
