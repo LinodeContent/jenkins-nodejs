@@ -19,8 +19,8 @@ describe("Webapp Status",function(){
     });
   });
 
-  // Test 2 - Control Test, Always TRUE
-  it("Mocha Control Test - this will always pass",function(done){
+  // Test 2 - Control Test
+  it("Mocha Control Test",function(done){
       (1).should.be.exactly(1).and.be.a.Number();
         done();
   });
