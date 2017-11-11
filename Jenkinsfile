@@ -19,17 +19,16 @@ pipeline {
       } // End of Parallel block
       post {
         always {
-            echo 'One way or another, I have finished'
-            deleteDir() /* clean up our workspace */
+            echo 'If you see this ALWAYS works.'
         }
         success {
-            echo 'I succeeeded!'
+            echo 'Post success conditional'
         }
         unstable {
-            echo 'I am unstable :/'
+            echo 'I am unstable :/ -this means I work.'
         }
         failure {
-            echo 'I failed :('
+            echo 'I failed :( - so this means I FAIL'
         }
         changed {
             echo 'Things were different before...'
