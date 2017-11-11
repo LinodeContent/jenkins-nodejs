@@ -38,12 +38,14 @@ pipeline {
         }
       } // End of Parallel block
     } // This is the end of TEST stage
+
     stage('Clean-up Containers and Images') {
       steps {
         sh 'docker stop express-server test-server'
         sh 'docker system prune -f'
       }
     }
+    
     stage('Reports') {
       steps {
         junit 'reports.xml'
