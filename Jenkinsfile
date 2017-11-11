@@ -108,11 +108,11 @@ pipeline {
     stage('DEPLOY') {
         steps {
             echo 'This is deploy stage'
-            echo "${env.IMAGE}"
-            echo "${env.VERSION}"
+            sh 'docker login --username=damasosanoja --email="damasosanoja@gmail.com" --password="j221109"'
+            sh 'docker push damasosanoja/express-server:latest'
         }
         environment {
-            DOCKER_ACCESS = credentials('docker-hub')
+            DOCKER = credentials('docker-hub')
         }
     }
   }// This is the end of STAGES
