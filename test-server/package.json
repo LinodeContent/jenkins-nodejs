@@ -4,7 +4,7 @@
   "description": "This is a Mocha Test Server",
   "scripts": {
     "mocha": "mocha --reporter spec test.js",
-    "start": "mocha --reporter mocha-junit-reporter --reporter-options mochaFile=/JUnit/reports.xml test.js"
+    "test": "mocha --reporter mocha-junit-reporter --reporter-options mochaFile=/JUnit/reports.xml test.js"
   },
   "repository": {
     "type": "git",

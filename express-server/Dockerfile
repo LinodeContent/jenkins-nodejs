@@ -8,7 +8,7 @@ WORKDIR /home/node/app
 COPY /express-server/package.json /home/node/app
 RUN npm install
 
-# Copy webapp
+# Copy node Application
 COPY app.js /home/node/app
 
 # Open port

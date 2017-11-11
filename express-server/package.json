@@ -1,7 +1,7 @@
 {
   "name": "express-server",
   "version": "1.0.0",
-  "description": "Example Express Server",
+  "description": "Example Node Application",
   "author": "Your name",
   "repository": {
     "type": "git",
