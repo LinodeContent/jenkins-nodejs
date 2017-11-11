@@ -69,6 +69,23 @@ pipeline {
         junit 'reports.xml'
         archiveArtifacts 'reports.xml'
       }
+      post {
+        always {
+            echo 'If you see this ALWAYS works.'
+        }
+        success {
+            echo 'Post success conditional'
+        }
+        unstable {
+            echo 'I am unstable :/ -this means I work.'
+        }
+        failure {
+            echo 'I failed :( - so this means I FAIL'
+        }
+        changed {
+            echo 'Things were different before...'
+        }
+    }
     }
   }
 }
