@@ -106,14 +106,15 @@ pipeline {
     }// This is the end of post actions
     }// This is the end of REPORTS stage
     stage('DEPLOY') {
-        steps {
-            echo 'This is deploy stage'
-            sh 'docker login --username=damasosanoja --password="j221109"'
-            sh 'docker push damasosanoja/express-server:latest'
-        }
         environment {
             DOCKER = credentials('docker-hub')
         }
+        steps {
+            echo 'This is deploy stage'
+            sh 'docker login --username="${env.DOCKER_USR}" --password="${env.DOCKER_PWD}"'
+            sh 'docker push damasosanoja/express-server:latest'
+        }
+
     }
   }// This is the end of STAGES
 }
