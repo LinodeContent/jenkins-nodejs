@@ -2,24 +2,21 @@ pipeline {
   agent any
   stages {
     stage('Build Servers') {
+// Build both Servers in Parallel
       parallel {
         stage('Express Server') {
           steps {
             sh 'docker build -f express-server/Dockerfile -t damasosanoja/express-server:latest .'
           }
         }
-        stage('Parallel Build') {
+        stage('Test Server') {
           steps {
-            echo 'Code here'
+            sh 'docker build -f test-server/Dockerfile -t damasosanoja/test-server:latest .'
           }
         }
-      }
-    }
-    stage('Test Server') {
-      steps {
-        sh 'docker build -f test-server/Dockerfile -t damasosanoja/test-server:latest .'
-      }
-    }
+      } // End of Parallel block
+    } // This is the end of Build Servers stage
+
     stage('Application Tests') {
       parallel {
         stage('Mocha Test') {
