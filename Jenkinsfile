@@ -89,6 +89,9 @@ pipeline {
       post {
         always {
             echo 'If you see this ALWAYS works.'
+            echo $BUILD_NUMBER
+            echo $BUILD_TAG
+            echo $docker-hub
         }
         success {
             echo 'Post success conditional'
@@ -102,7 +105,7 @@ pipeline {
         changed {
             echo 'Things were different before...'
         }
-    }
-    }
-  }
+    }// This is the end of post actions
+    }// This is the end of REPORTS stage
+  }// This is the end of STAGES
 }
