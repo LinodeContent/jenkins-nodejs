@@ -107,7 +107,7 @@ pipeline {
     }// This is the end of REPORTS stage
     stage('DEPLOY') {
         environment {
-            DOCKER = credentials('docker-hub')
+            DOCKER = credentials('docker-registry')
         }
         steps {
             echo 'This is deploy stage'
