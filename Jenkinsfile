@@ -55,6 +55,23 @@ pipeline {
           }
         }
       } // End of Parallel block
+      post {
+        always {
+            echo 'Test stage ALWAYS message.'
+        }
+        success {
+            echo 'Test stage SUCCESS message'
+        }
+        unstable {
+            echo 'Test stage UNSTABLE message'
+        }
+        failure {
+            echo 'I failed :( - so this means I FAIL'
+        }
+        changed {
+            echo 'Things were different before...'
+        }
+    }
     } // This is the end of TEST stage
 
     stage('Clean-up Containers and Images') {
