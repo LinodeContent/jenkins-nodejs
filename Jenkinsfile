@@ -89,7 +89,7 @@ pipeline {
       post {
         always {
             echo 'If you see this ALWAYS works.'
-            echo {$BUILD_NUMBER}
+            echo ${BUILD_NUMBER}
         }
         success {
             echo 'Post success conditional'
