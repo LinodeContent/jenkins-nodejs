@@ -17,29 +17,19 @@ pipeline {
       post {
         always {
           echo 'If you see this ALWAYS works.'
-
         }
-
         success {
           echo 'Post success conditional'
-
         }
-
         unstable {
           echo 'I am unstable :/ -this means I work.'
-
         }
-
         failure {
           echo 'I failed :( - so this means I FAIL'
-
         }
-
         changed {
           echo 'Things were different before...'
-
         }
-
       }
     }
     stage('TEST') {
@@ -59,29 +49,19 @@ pipeline {
       post {
         always {
           echo 'Test stage ALWAYS message.'
-
         }
-
         success {
           echo 'Test stage SUCCESS message'
-
         }
-
         unstable {
           echo 'Test stage UNSTABLE message'
-
         }
-
         failure {
           echo 'I failed :( - so this means I FAIL'
-
         }
-
         changed {
           echo 'Things were different before...'
-
         }
-
       }
     }
     stage('Clean-up Containers and Images') {
@@ -100,46 +80,31 @@ pipeline {
           echo 'If you see this ALWAYS works.'
           echo "${env.BUILD_NUMBER}"
           deleteDir()
-
         }
-
         success {
           echo 'Post success conditional'
-
         }
-
         unstable {
           echo 'I am unstable :/ -this means I work.'
-
         }
-
         failure {
           echo 'I failed :( - so this means I FAIL'
-
         }
-
         changed {
           echo 'Things were different before...'
-
         }
-
       }
     }
     stage('DEPLOY') {
       environment {
         DOCKER = credentials('docker-hub')
       }
+      when {
+       branch 'master'  //only run these steps on the master branch
+      }
       steps {
         echo 'This is deploy stage'
         sh 'docker login --username $DOCKER_USR --password $DOCKER_PSW'
-      }
-    }
-    stage('Promote') {
-      steps {
-        timeout(time: 5, unit: 'MINUTES') {
-          input(message: 'Ready for Promotion', id: 'promotion', submitter: 'IT Departament')
-        }
-        sh 'echo "Hello"'
       }
     }
   }
