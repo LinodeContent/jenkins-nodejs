@@ -106,7 +106,7 @@ pipeline {
         }
     }// This is the end of post actions
     }// This is the end of REPORTS stage
-    stage 'Promotion' {
+    stage ('Promotion') {
         input 'Deploy to Production?'
     }
 
