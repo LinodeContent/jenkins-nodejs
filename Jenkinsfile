@@ -78,6 +78,7 @@ pipeline {
       steps {
         sh 'docker stop express-server test-server'
         sh 'docker system prune -f'
+        deleteDir()
       }
     }
 
