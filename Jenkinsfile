@@ -112,11 +112,10 @@ pipeline {
         }
         steps {
             echo 'This is deploy stage'
-        //    sh 'docker login --username=$DOCKER_USR --password="$DOCKER_PWD"'
-        //    sh 'docker push damasosanoja/express-server:latest'
+            timeout(time:5, unit:'MINUTES') {
+    input message:'Approve deployment?', submitter: 'Operations'
+}
         sh 'docker login --username $DOCKER_USR --password $DOCKER_PSW'
-        sh 'echo $DOCKER_PSW'
-        sh 'echo $DOCKER_USR'
         }
 
     }
