@@ -1,7 +1,7 @@
 var supertest = require("supertest");
 var should = require("should");
 
-var server = supertest.agent("http://express-server:9000");
+var server = supertest.agent("http://express-image:9000");
 
 // Unit Test
 

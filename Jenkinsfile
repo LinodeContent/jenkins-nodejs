@@ -6,14 +6,14 @@ pipeline {
       parallel {
         stage('Express Image') {
           steps {
-            sh 'docker build -f express-server/Dockerfile \
-            -t damasosanoja/express-server:latest .'
+            sh 'docker build -f express-image/Dockerfile \
+            -t damasosanoja/express-image:latest .'
           }
         }
         stage('Test-Unit Image') {
           steps {
-            sh 'docker build -f test-server/Dockerfile \
-            -t damasosanoja/test-server:latest .'
+            sh 'docker build -f testing-image/Dockerfile \
+            -t damasosanoja/testing-image:latest .'
           }
         }
       }
@@ -33,11 +33,11 @@ pipeline {
       parallel {
         stage('Mocha Tests') {
           steps {
-            sh 'docker run --name express-server --network="bridge" -d \
-            -p 9000:9000 damasosanoja/express-server:latest'
-            sh 'docker run --name test-server -v $PWD:/JUnit --network="bridge" \
-            --link=express-server -d -p 9001:9000 \
-            damasosanoja/test-server:latest'
+            sh 'docker run --name express-image --network="bridge" -d \
+            -p 9000:9000 damasosanoja/express-image:latest'
+            sh 'docker run --name testing-image -v $PWD:/JUnit --network="bridge" \
+            --link=express-image -d -p 9001:9000 \
+            damasosanoja/testing-image:latest'
           }
         }
         stage('Quality Tests') {
@@ -77,7 +77,7 @@ pipeline {
 // Doing containers clean-up to avoid conflicts in future builds
     stage('CLEAN-UP') {
       steps {
-        sh 'docker stop express-server test-server'
+        sh 'docker stop express-image testing-image'
         sh 'docker system prune -f'
       }
     }
@@ -87,26 +87,8 @@ pipeline {
         junit 'reports.xml'
         archiveArtifacts(artifacts: 'reports.xml', allowEmptyArchive: true)
       }
-      post {
-        always {
-          echo 'If you see this ALWAYS works.'
-          echo "${env.BUILD_NUMBER}"
-          deleteDir()
-        }
-        success {
-          echo 'Post success conditional'
-        }
-        unstable {
-          echo 'I am unstable :/ -this means I work.'
-        }
-        failure {
-          echo 'I failed :( - so this means I FAIL'
-        }
-        changed {
-          echo 'Things were different before...'
-        }
-      }
     }
+// Deploying your Software
     stage('DEPLOY') {
       environment {
         DOCKER = credentials('docker-hub')
@@ -115,8 +97,8 @@ pipeline {
        branch 'master'  //only run these steps on the master branch
       }
       steps {
-        echo 'This is deploy stage'
         sh 'docker login --username $DOCKER_USR --password $DOCKER_PSW'
+
       }
     }
   }

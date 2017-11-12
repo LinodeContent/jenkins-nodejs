@@ -5,7 +5,7 @@ RUN mkdir -p /home/node/app
 WORKDIR /home/node/app
 
 # Install server dependencies
-COPY /express-server/package.json /home/node/app
+COPY /express-image/package.json /home/node/app
 RUN npm install
 
 # Copy node Application
