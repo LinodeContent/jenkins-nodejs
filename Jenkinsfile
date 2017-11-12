@@ -46,7 +46,8 @@ pipeline {
         stage('Quality Tests') {
           steps {
             sh 'docker login --username $DOCKER_USR --password $DOCKER_PSW'
-            sh 'docker push damasosanoja/nodeapp-dev:stable'
+            sh 'docker tag nodeapp-dev:stable damasosanoja/nodeapp-dev:latest'
+            sh 'docker push damasosanoja/nodeapp-dev:latest'
           }
         }
       }
