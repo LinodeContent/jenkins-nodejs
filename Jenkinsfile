@@ -22,7 +22,7 @@ pipeline {
       }
       post {
         failure {
-            echo 'I failed'
+            echo 'I failed :('
 // Uncomment this lines for email notifications on failure
 //          mail(from: "jenkins-bot@example.com",
 //           to: "devops@example.com",
@@ -70,7 +70,7 @@ pipeline {
 //              ${env.BUILD_URL} Branch: ${env.GIT_BRANCH} Commit: ${env.GIT_COMMIT}")
         }
         failure {
-            echo 'I failed'
+            echo 'I failed :('
 // Uncomment this lines for email notifications on failure
 //            mail(from: "jenkins-bot@example.com",
 //             to: "devops@example.com",
