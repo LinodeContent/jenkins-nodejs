@@ -80,6 +80,7 @@ pipeline {
           echo 'If you see this ALWAYS works.'
           echo "${env.BUILD_NUMBER}"
           deleteDir()
+          sh "exit 1"
         }
         success {
           echo 'Post success conditional'
