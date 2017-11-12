@@ -26,6 +26,8 @@ pipeline {
            to: "devops@example.com",
            subject: "This build failed! ${env.BUILD_TAG}",
            body: "Check the failure ${env.BUILD_URL}")
+           sh 'docker stop express-server test-server'
+           sh 'docker system prune -f'
         }
       }
     }
