@@ -79,32 +79,30 @@ pipeline {
         }
       }
     }
-// Doing containers clean-up to avoid conflicts in future builds
-    stage('CLEAN-UP') {
-      steps {
-        sh 'docker stop nodeapp-dev testing-image'
-        sh 'docker system prune -f'
-      }
+// Deploying your Software
+    stage('DEPLOY') {
+          when {
+           branch 'master'  //only run these steps on the master branch
+          }
+            steps {
+                sh 'docker tag nodeapp-dev:stable damasosanoja/nodeapp-prod:latest'
+                sh 'docker push damasosanoja/nodeapp-prod:latest'
+                sh 'docker save damasosanoja/nodeapp-prod:latest | gzip > /home/nodeapp-prod-golden.tar.gz'
+            }
     }
-// Reporting and saving artifacts
-    stage('Reports') {
+// JUnit reports and artifacts saving
+    stage('REPORTS') {
       steps {
         junit 'reports.xml'
         archiveArtifacts(artifacts: 'reports.xml', allowEmptyArchive: true)
       }
     }
-// Deploying your Software
-    stage('DEPLOY') {
-      when {
-       branch 'master'  //only run these steps on the master branch
-      }
+// Doing containers clean-up to avoid conflicts in future builds
+    stage('CLEAN-UP') {
       steps {
-//        sh 'docker login --username $DOCKER_USR --password $DOCKER_PSW'
-        sh 'docker tag nodeapp-dev:stable damasosanoja/nodeapp-prod:latest'
-        sh 'docker push damasosanoja/nodeapp-prod:latest'
-        sh 'docker save damasosanoja/nodeapp-prod:latest | gzip > nodeapp-prod-golden.tar.gz'
+        sh 'docker stop nodeapp-dev testing-image'
+        sh 'docker system prune -f'
         deleteDir()
-
       }
     }
   }
