@@ -111,12 +111,6 @@ pipeline {
             DOCKER = credentials('docker-hub')
         }
         steps {
-            timeout(time:5, unit:'MINUTES') {
-                input message:'Approve deployment?', submitter: 'Operations'
-            sh 'Hello'
-        }
-        }
-        steps {
             echo 'This is deploy stage'
         sh 'docker login --username $DOCKER_USR --password $DOCKER_PSW'
         }
