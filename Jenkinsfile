@@ -116,6 +116,7 @@ pipeline {
         //    sh 'docker push damasosanoja/express-server:latest'
         //    sh 'docker login -u $DOCKER_USR --password j221109'
         sh 'echo $DOCKER_PSW'
+        sh 'echo $DOCKER_USR'
         }
 
     }
