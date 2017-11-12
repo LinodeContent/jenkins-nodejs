@@ -59,10 +59,8 @@ pipeline {
             mail(from: "jenkins-bot@example.com",
              to: "QA-testing@example.com",
              subject: "Unstable Test Results ${env.BUILD_TAG}",
-             body: "The ${env.JOB_NAME} Project had an unstable test result:
-                    ${env.BUILD_URL}
-                    Branch: ${env.GIT_BRANCH}
-                    Commit: ${env.GIT_COMMIT}")
+             body: "The ${env.JOB_NAME} Project had an unstable test result \
+              ${env.BUILD_URL} Branch: ${env.GIT_BRANCH} Commit: ${env.GIT_COMMIT}")
         }
         failure {
             mail(from: "jenkins-bot@example.com",
