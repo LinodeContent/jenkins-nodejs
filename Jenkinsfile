@@ -7,7 +7,7 @@ pipeline {
         stage('Express Image') {
           steps {
             sh 'docker build -f express-image/Dockerfile \
-            -t nodeapp-dev:${env.BUILD_NUMBER} .'
+            -t nodeapp-dev:"${env.BUILD_NUMBER}" .'
           }
         }
         stage('Test-Unit Image') {
@@ -34,7 +34,7 @@ pipeline {
         stage('Mocha Tests') {
           steps {
             sh 'docker run --name nodeapp-dev --network="bridge" -d \
-            -p 9000:9000 nodeapp-dev:${env.BUILD_NUMBER}'
+            -p 9000:9000 nodeapp-dev:"${env.BUILD_NUMBER}"'
             sh 'docker run --name testing-image -v $PWD:/JUnit --network="bridge" \
             --link=nodeapp-dev -d -p 9001:9000 \
             damasosanoja/testing-image:latest'
