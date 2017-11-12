@@ -7,7 +7,7 @@ pipeline {
         stage('Express Image') {
           steps {
             sh 'docker build -f express-image/Dockerfile \
-            -t nodeapp-dev:"stable .'
+            -t nodeapp-dev:stable .'
           }
         }
         stage('Test-Unit Image') {
