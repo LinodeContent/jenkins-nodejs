@@ -19,6 +19,7 @@ pipeline {
       }
       post {
         failure {
+            echo 'I failed'
 // Uncomment this lines for email notifications on failure
 //          mail(from: "jenkins-bot@example.com",
 //           to: "devops@example.com",
@@ -47,6 +48,7 @@ pipeline {
       }
       post {
         success {
+            echo 'Success!'
 // Uncomment this lines for email notifications on success
 //            mail(from: "jenkins-bot@example.com",
 //             to: "QA-testing@example.com",
@@ -54,6 +56,7 @@ pipeline {
 //             body: "Please review")
         }
         unstable {
+            echo 'I am unstable'
 // Uncomment this lines for email notifications when marked as unstable (failed tests)
 //            mail(from: "jenkins-bot@example.com",
 //             to: "QA-testing@example.com",
@@ -62,6 +65,7 @@ pipeline {
 //              ${env.BUILD_URL} Branch: ${env.GIT_BRANCH} Commit: ${env.GIT_COMMIT}")
         }
         failure {
+            echo 'I failed'
 // Uncomment this lines for email notifications on failure
 //            mail(from: "jenkins-bot@example.com",
 //             to: "devops@example.com",
