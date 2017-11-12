@@ -7,13 +7,13 @@ pipeline {
         stage('Express Image') {
           steps {
             sh 'docker build -f express-image/Dockerfile \
-            -t damasosanoja/express-image:latest .'
+            -t nodeapp-dev:${env.BUILD_NUMBER} .'
           }
         }
         stage('Test-Unit Image') {
           steps {
             sh 'docker build -f testing-image/Dockerfile \
-            -t damasosanoja/testing-image:latest .'
+            -t testing-image:latest .'
           }
         }
       }
@@ -33,10 +33,10 @@ pipeline {
       parallel {
         stage('Mocha Tests') {
           steps {
-            sh 'docker run --name express-image --network="bridge" -d \
-            -p 9000:9000 damasosanoja/express-image:latest'
+            sh 'docker run --name nodeapp-dev --network="bridge" -d \
+            -p 9000:9000 nodeapp-dev:${env.BUILD_NUMBER}'
             sh 'docker run --name testing-image -v $PWD:/JUnit --network="bridge" \
-            --link=express-image -d -p 9001:9000 \
+            --link=nodeapp-dev -d -p 9001:9000 \
             damasosanoja/testing-image:latest'
           }
         }
@@ -77,7 +77,7 @@ pipeline {
 // Doing containers clean-up to avoid conflicts in future builds
     stage('CLEAN-UP') {
       steps {
-        sh 'docker stop express-image testing-image'
+        sh 'docker stop nodeapp-dev testing-image'
         sh 'docker system prune -f'
       }
     }
