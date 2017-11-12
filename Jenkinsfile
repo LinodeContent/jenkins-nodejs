@@ -85,16 +85,29 @@ pipeline {
            branch 'master'  //only run these steps on the master branch
           }
             steps {
-                sh 'docker tag nodeapp-dev:stable damasosanoja/nodeapp-prod:latest'
-                sh 'docker push damasosanoja/nodeapp-prod:latest'
-                sh 'docker save damasosanoja/nodeapp-prod:latest | gzip > nodeapp-prod-golden.tar.gz'
+                    retry(3) {
+                        timeout(time:10, unit: 'MINUTES') {
+                            sh 'docker tag nodeapp-dev:stable damasosanoja/nodeapp-prod:latest'
+                            sh 'docker push damasosanoja/nodeapp-prod:latest'
+                            sh 'docker save damasosanoja/nodeapp-prod:latest | gzip > nodeapp-prod-golden.tar.gz'
+                        }
+                    }
+
+            }
+            post {
+                failure {
+                    sh 'docker stop nodeapp-dev testing-image'
+                    sh 'docker system prune -f'
+                    deleteDir()
+                }
             }
     }
 // JUnit reports and artifacts saving
     stage('REPORTS') {
       steps {
         junit 'reports.xml'
-        archiveArtifacts(artifacts: 'reports.xml', 'nodeapp-prod-golden.tar.gz', allowEmptyArchive: true)
+        archiveArtifacts(artifacts: 'reports.xml', allowEmptyArchive: true)
+        archiveArtifacts(artifacts: 'nodeapp-prod-golden.tar.gz', allowEmptyArchive: true)
       }
     }
 // Doing containers clean-up to avoid conflicts in future builds
