@@ -87,14 +87,14 @@ pipeline {
             steps {
                 sh 'docker tag nodeapp-dev:stable damasosanoja/nodeapp-prod:latest'
                 sh 'docker push damasosanoja/nodeapp-prod:latest'
-                sh 'docker save damasosanoja/nodeapp-prod:latest | gzip > /home/nodeapp-prod-golden.tar.gz'
+                sh 'docker save damasosanoja/nodeapp-prod:latest | gzip > nodeapp-prod-golden.tar.gz'
             }
     }
 // JUnit reports and artifacts saving
     stage('REPORTS') {
       steps {
         junit 'reports.xml'
-        archiveArtifacts(artifacts: 'reports.xml', allowEmptyArchive: true)
+        archiveArtifacts(artifacts: 'reports.xml', 'nodeapp-prod-golden.tar.gz', allowEmptyArchive: true)
       }
     }
 // Doing containers clean-up to avoid conflicts in future builds
