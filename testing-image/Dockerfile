@@ -8,7 +8,7 @@ RUN mkdir -p /home/node/tests
 WORKDIR /home/node/tests
 
 # Install app dependencies
-COPY /test-server/package.json /home/node/tests
+COPY /testing-image/package.json /home/node/tests
 RUN npm install
 
 # Copy test source

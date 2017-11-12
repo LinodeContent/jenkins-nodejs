@@ -1,7 +1,7 @@
 var supertest = require("supertest");
 var should = require("should");
 
-var server = supertest.agent("http://express-server:9000");
+var server = supertest.agent("http://nodeapp-dev:9000");
 
 // Unit Test
 
@@ -19,7 +19,7 @@ describe("Webapp Status",function(){
     });
   });
 
-  // Test 2 - Control Test
+  // Test 2 - Control Tests
   it("Mocha Control Test",function(done){
       (1).should.be.exactly(1).and.be.a.Number();
         done();

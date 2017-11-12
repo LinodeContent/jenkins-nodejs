@@ -10,7 +10,7 @@ const HOST = '0.0.0.0';
 // Application content
 const os = ['Windows','macOS','Linux']
 
-// Web Server in action
+// Web Server 
 app.get('/',function(req,res) {
   res.json(os);
 });

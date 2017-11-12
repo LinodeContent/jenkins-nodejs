@@ -1,5 +1,5 @@
 {
-  "name": "test-server",
+  "name": "testing-image",
   "version": "1.0.0",
   "description": "This is a Mocha Test Server",
   "scripts": {
