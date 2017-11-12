@@ -3,7 +3,6 @@ pipeline {
   stages {
 // Building your Test Images
     stage('BUILD') {
-// Parallel block
       parallel {
         stage('Express Image') {
           steps {
@@ -18,22 +17,18 @@ pipeline {
           }
         }
       }
-// This action only triggers if the build FAILS
       post {
         failure {
-          echo 'Sorry, I failed you.'
-          mail(from: "jenkins-bot@example.com",
-           to: "devops@example.com",
-           subject: "This build failed! ${env.BUILD_TAG}",
-           body: "Check the failure ${env.BUILD_URL}")
-           sh 'docker stop express-server test-server'
-           sh 'docker system prune -f'
+// Uncomment this lines for email notifications on failure
+//          mail(from: "jenkins-bot@example.com",
+//           to: "devops@example.com",
+//           subject: "This build failed! ${env.BUILD_TAG}",
+//           body: "Check the failure ${env.BUILD_URL}")
         }
       }
     }
 // Performing Software Tests
     stage('TEST') {
-// Doing tests in parallel
       parallel {
         stage('Mocha Tests') {
           steps {
@@ -52,32 +47,37 @@ pipeline {
       }
       post {
         success {
-            mail(from: "jenkins-bot@example.com",
-             to: "QA-testing@example.com",
-             subject: "New test image available ${env.BUILD_TAG}",
-             body: "Please review")
+// Uncomment this lines for email notifications on success
+//            mail(from: "jenkins-bot@example.com",
+//             to: "QA-testing@example.com",
+//             subject: "New test image available ${env.BUILD_TAG}",
+//             body: "Please review")
         }
         unstable {
-            mail(from: "jenkins-bot@example.com",
-             to: "QA-testing@example.com",
-             subject: "Unstable Test Results ${env.BUILD_TAG}",
-             body: "The ${env.JOB_NAME} Project had an unstable test result \
-              ${env.BUILD_URL} Branch: ${env.GIT_BRANCH} Commit: ${env.GIT_COMMIT}")
+// Uncomment this lines for email notifications when marked as unstable (failed tests)
+//            mail(from: "jenkins-bot@example.com",
+//             to: "QA-testing@example.com",
+//             subject: "Unstable Test Results ${env.BUILD_TAG}",
+//             body: "The ${env.JOB_NAME} Project had an unstable test result \
+//              ${env.BUILD_URL} Branch: ${env.GIT_BRANCH} Commit: ${env.GIT_COMMIT}")
         }
         failure {
-            mail(from: "jenkins-bot@example.com",
-             to: "devops@example.com",
-             subject: "Test Stage failed! ${env.BUILD_TAG}",
-             body: "Check the failure ${env.BUILD_URL}")
+// Uncomment this lines for email notifications on failure
+//            mail(from: "jenkins-bot@example.com",
+//             to: "devops@example.com",
+//             subject: "Test Stage failed! ${env.BUILD_TAG}",
+//             body: "Check the failure ${env.BUILD_URL}")
         }
       }
     }
-    stage('Clean-up Containers and Images') {
+// Doing containers clean-up to avoid conflicts in future builds
+    stage('CLEAN-UP') {
       steps {
         sh 'docker stop express-server test-server'
         sh 'docker system prune -f'
       }
     }
+// Reporting and saving artifacts
     stage('Reports') {
       steps {
         junit 'reports.xml'
