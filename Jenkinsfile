@@ -110,8 +110,10 @@ pipeline {
         environment {
             DOCKER = credentials('docker-hub')
         }
-        timeout(time:5, unit:'MINUTES') {
-            input message:'Approve deployment?', submitter: 'Operations'
+        steps {
+            timeout(time:5, unit:'MINUTES') {
+                input message:'Approve deployment?', submitter: 'Operations'
+        }    
         }
         steps {
             echo 'This is deploy stage'
