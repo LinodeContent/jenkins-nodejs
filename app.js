@@ -15,5 +15,6 @@ app.get('/',function(req,res) {
   res.json(os);
 });
 
+// Console output
 app.listen(PORT, HOST);
 console.log(`Running on http://${HOST}:${PORT}`);
