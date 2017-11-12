@@ -99,7 +99,11 @@ pipeline {
        branch 'master'  //only run these steps on the master branch
       }
       steps {
-        sh 'docker login --username $DOCKER_USR --password $DOCKER_PSW'
+//        sh 'docker login --username $DOCKER_USR --password $DOCKER_PSW'
+        sh 'docker tag nodeapp-dev:stable damasosanoja/nodeapp-prod:latest'
+        sh 'docker push damasosanoja/nodeapp-prod:latest'
+        sh 'docker save damasosanoja/nodeapp-prod:latest | gzip > nodeapp-prod-golden.tar.gz'
+        deleteDir()
 
       }
     }
