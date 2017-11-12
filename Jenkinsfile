@@ -78,7 +78,6 @@ pipeline {
       steps {
         sh 'docker stop express-server test-server'
         sh 'docker system prune -f'
-        deleteDir()
       }
     }
 
@@ -91,6 +90,7 @@ pipeline {
         always {
             echo 'If you see this ALWAYS works.'
             echo "${env.BUILD_NUMBER}"
+            deleteDir()
         }
         success {
             echo 'Post success conditional'
