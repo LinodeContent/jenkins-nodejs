@@ -19,7 +19,7 @@ describe("Webapp Status",function(){
     });
   });
 
-  // Test 2 - Control Test
+  // Test 2 - Control Tests
   it("Mocha Control Test",function(done){
       (1).should.be.exactly(1).and.be.a.Number();
         done();
