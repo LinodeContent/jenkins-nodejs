@@ -37,7 +37,7 @@ pipeline {
             -p 9000:9000 nodeapp-dev:stable'
             sh 'docker run --name testing-image -v $PWD:/JUnit --network="bridge" \
             --link=nodeapp-dev -d -p 9001:9000 \
-            damasosanoja/testing-image:latest'
+            testing-image:latest'
           }
         }
         stage('Quality Tests') {
