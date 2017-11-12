@@ -1,4 +1,7 @@
 pipeline {
+    environment {
+      DOCKER = credentials('docker-hub')
+    }
   agent any
   stages {
 // Building your Test Images
@@ -42,7 +45,8 @@ pipeline {
         }
         stage('Quality Tests') {
           steps {
-            echo 'Here will be a docker push'
+            sh 'docker login --username $DOCKER_USR --password $DOCKER_PSW'
+            sh 'docker push damasosanoja/nodeapp-dev:stable'
           }
         }
       }
@@ -90,9 +94,6 @@ pipeline {
     }
 // Deploying your Software
     stage('DEPLOY') {
-      environment {
-        DOCKER = credentials('docker-hub')
-      }
       when {
        branch 'master'  //only run these steps on the master branch
       }
