@@ -84,7 +84,7 @@ pipeline {
     stage('Reports') {
       steps {
         junit 'reports.xml'
-        archiveArtifacts 'reports.xml'
+        archiveArtifacts(artifacts: 'reports.xml', allowEmptyArchive: true)
       }
       post {
         always {
@@ -108,13 +108,14 @@ pipeline {
     }// This is the end of REPORTS stage
     stage('DEPLOY') {
         environment {
-            DOCKER = credentials('docker-registry')
+            DOCKER = credentials('docker-hub')
         }
         steps {
             echo 'This is deploy stage'
         //    sh 'docker login --username=$DOCKER_USR --password="$DOCKER_PWD"'
         //    sh 'docker push damasosanoja/express-server:latest'
-            sh 'docker login -u $DOCKER_USR --password-stdin j221109'
+        //    sh 'docker login -u $DOCKER_USR --password j221109'
+        sh 'echo $DOCKER_PSW'
         }
 
     }
