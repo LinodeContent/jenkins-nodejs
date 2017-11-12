@@ -113,7 +113,7 @@ pipeline {
             echo 'This is deploy stage'
         //    sh 'docker login --username=$DOCKER_USR --password="$DOCKER_PWD"'
         //    sh 'docker push damasosanoja/express-server:latest'
-            sh 'echo DOCKER_PWD is $DOCKER_PWD'
+            sh 'docker login -u $DOCKER_USR -p $DOCKER_PWD'
         }
 
     }
