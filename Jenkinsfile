@@ -10,7 +10,7 @@ pipeline {
         stage('Express Image') {
           steps {
             sh 'docker build -f express-image/Dockerfile \
-            -t nodeapp-dev:stable .'
+            -t nodeapp-dev:trunk .'
           }
         }
         stage('Test-Unit Image') {
@@ -37,7 +37,7 @@ pipeline {
         stage('Mocha Tests') {
           steps {
             sh 'docker run --name nodeapp-dev --network="bridge" -d \
-            -p 9000:9000 nodeapp-dev:stable'
+            -p 9000:9000 nodeapp-dev:trunk'
             sh 'docker run --name testing-image -v $PWD:/JUnit --network="bridge" \
             --link=nodeapp-dev -d -p 9001:9000 \
             testing-image:latest'
@@ -46,7 +46,7 @@ pipeline {
         stage('Quality Tests') {
           steps {
             sh 'docker login --username $DOCKER_USR --password $DOCKER_PSW'
-            sh 'docker tag nodeapp-dev:stable damasosanoja/nodeapp-dev:latest'
+            sh 'docker tag nodeapp-dev:trunk damasosanoja/nodeapp-dev:latest'
             sh 'docker push damasosanoja/nodeapp-dev:latest'
           }
         }
@@ -87,7 +87,7 @@ pipeline {
             steps {
                     retry(3) {
                         timeout(time:10, unit: 'MINUTES') {
-                            sh 'docker tag nodeapp-dev:stable damasosanoja/nodeapp-prod:latest'
+                            sh 'docker tag nodeapp-dev:trunk damasosanoja/nodeapp-prod:latest'
                             sh 'docker push damasosanoja/nodeapp-prod:latest'
                             sh 'docker save damasosanoja/nodeapp-prod:latest | gzip > nodeapp-prod-golden.tar.gz'
                         }
